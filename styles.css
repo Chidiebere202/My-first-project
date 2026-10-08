@@ -1,0 +1,757 @@
+    /* These variables are shared colors used throughout the page. */
+    :root {
+      color-scheme: light;
+      --ink: #18212a;
+      --muted: #7b8087;
+      --line: #ececec;
+      --orange: #e97845;
+      --orange-pale: #fff0e8;
+      --surface: #fff;
+      --shadow: 0 18px 48px rgb(25 29 33 / 15%);
+    }
+
+    /* Include padding and borders in an element's total width and height. */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Set the default text, background, and font for the whole page. */
+    body {
+      margin: 0;
+      background: var(--surface);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Make buttons and links use the same font as the rest of the page. */
+    button,
+    a {
+      font: inherit;
+    }
+
+    /* Make button text use the normal page text color. */
+    button {
+      color: inherit;
+    }
+
+    /* Arrange the logo, navigation, and controls in a header row. */
+    .site-header {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      width: min(1180px, calc(100% - 64px));
+      height: 96px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* Style the sneakers logo. */
+    .brand {
+      color: var(--ink);
+      font-family: "Manrope", sans-serif;
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -1.3px;
+      line-height: 1;
+      text-decoration: none;
+    }
+
+
+    /* Place navigation links next to each other. */
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 31px;
+      height: 100%;
+    }
+
+    /* Set the size and appearance of each navigation link. */
+    .main-nav a {
+      display: inline-flex;
+      align-items: center;
+      height: 100%;
+      border-bottom: 3px solid transparent;
+      color: #73777d;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 160ms ease, border-color 160ms ease;
+    }
+
+    /* Highlight a navigation link when hovered or focused by keyboard. */
+    .main-nav a:hover,
+    .main-nav a:focus-visible {
+      border-bottom-color: var(--orange);
+      color: var(--ink);
+    }
+
+    /* Keep the cart and avatar buttons together at the right side. */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-left: auto;
+    }
+
+    /* Give header buttons a consistent size and center their icons. */
+    .icon-button,
+    .avatar-button,
+    .menu-button {
+      position: relative;
+      display: grid;
+      width: 40px;
+      height: 44px;
+      padding: 0;
+      place-items: center;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    /* Set the cart icon size. */
+    .icon-button img {
+      width: 23px;
+      height: 23px;
+    }
+
+    /* Position and style the number badge on the cart button. */
+    .cart-count {
+      position: absolute;
+      top: 3px;
+      right: -4px;
+      min-width: 19px;
+      height: 16px;
+      padding: 0 5px;
+      border-radius: 10px;
+      background: var(--orange);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 16px;
+      text-align: center;
+    }
+
+    /* Hide the number badge while the cart is empty. */
+    .cart-count[hidden] {
+      display: none;
+    }
+
+    /* Make the avatar button round. */
+    .avatar-button {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+    }
+
+    /* Fit the avatar image inside its round button. */
+    .avatar-button img {
+      width: 42px;
+      height: 42px;
+      border: 2px solid transparent;
+      border-radius: 50%;
+    }
+
+    /* Add an orange ring when the avatar is hovered or the cart is open. */
+    .avatar-button:hover img,
+    .avatar-button[aria-expanded="true"] img {
+      border-color: var(--orange);
+    }
+
+    /* Hide the menu button on wide screens. */
+    .menu-button {
+      display: none;
+    }
+
+    /* Style the cart panel that opens below the header. */
+    .cart-popover {
+      position: absolute;
+      top: 78px;
+      right: 0;
+      width: min(360px, calc(100vw - 32px));
+      min-height: 212px;
+      overflow: hidden;
+      border: 1px solid #f0f0f0;
+      border-radius: 10px;
+      background: white;
+      box-shadow: var(--shadow);
+      animation: pop-in 160ms ease-out both;
+    }
+
+    /* Keep the cart panel hidden until JavaScript opens it. */
+    .cart-popover[hidden] {
+      display: none;
+    }
+
+    /* Style the cart panel heading. */
+    .cart-title {
+      margin: 0;
+      padding: 21px 23px;
+      border-bottom: 1px solid var(--line);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    /* Center the message or product details in the cart. */
+    .cart-content {
+      display: grid;
+      min-height: 145px;
+      padding: 22px 23px;
+      place-items: center;
+    }
+
+    /* Make the empty cart message muted. */
+    .empty-cart {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Arrange the cart photo, details, and remove button in columns. */
+    .cart-item {
+      display: grid;
+      grid-template-columns: 48px 1fr 22px;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+    }
+
+    /* Set the size and crop of the cart's product photo. */
+    .cart-item-image {
+      width: 48px;
+      height: 48px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    /* Style the product name in the cart. */
+    .cart-item-name {
+      margin: 0 0 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Style the price and quantity in the cart. */
+    .cart-item-total {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Make the total price darker so it stands out. */
+    .cart-item-total strong {
+      color: var(--ink);
+    }
+
+    /* Make the remove icon button easy to click. */
+    .remove-button {
+      display: grid;
+      width: 24px;
+      height: 30px;
+      padding: 0;
+      place-items: center;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    /* Set the size and softness of the remove icon. */
+    .remove-button img {
+      width: 14px;
+      height: 16px;
+      opacity: .58;
+    }
+
+    /* Make checkout fill the bottom row of the cart. */
+    .checkout-button {
+      grid-column: 1 / -1;
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    /* Put product details and the image gallery side by side. */
+    .product-layout {
+      display: grid;
+      grid-template-columns: minmax(400px, 1fr) minmax(300px, .82fr);
+      align-items: center;
+      gap: clamp(55px, 9vw, 128px);
+      width: min(1010px, calc(100% - 64px));
+      margin: 71px auto 90px;
+      animation: rise-in 550ms cubic-bezier(.2, .75, .25, 1) both;
+    }
+
+    /* Place product text in the second column and limit its width. */
+    .product-copy {
+      grid-column: 2;
+      grid-row: 1;
+      max-width: 395px;
+    }
+
+    /* Style the small company label above the product name. */
+    .eyebrow {
+      margin: 0 0 20px;
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.65px;
+    }
+
+    /* Style the main product heading. */
+    .product-title {
+      max-width: 390px;
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(34px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -1.8px;
+      line-height: 1.12;
+    }
+
+    /* Make the product description easy to read. */
+    .product-description {
+      margin: 24px 0 28px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    /* Put the sale price and discount on the same line. */
+    .price-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Make the discounted price large and bold. */
+    .sale-price {
+      font-family: "Manrope", sans-serif;
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -.6px;
+    }
+
+    /* Highlight the 50% discount. */
+    .discount {
+      padding: 5px 9px;
+      border-radius: 5px;
+      background: var(--orange-pale);
+      color: #c65d2d;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    /* Make the old price smaller and cross it out. */
+    .original-price {
+      margin: 5px 0 27px;
+      color: #a4a6a9;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: line-through;
+    }
+
+    /* Put the quantity control and add button beside each other. */
+    .purchase-row {
+      display: grid;
+      grid-template-columns: 132px 1fr;
+      gap: 13px;
+    }
+
+    /* Arrange the minus button, quantity, and plus button. */
+    .quantity-control {
+      display: grid;
+      grid-template-columns: 1fr 30px 1fr;
+      align-items: center;
+      height: 52px;
+      border-radius: 7px;
+      background: #f6f6f6;
+    }
+
+    /* Center the plus and minus icons in their buttons. */
+    .quantity-control button {
+      display: grid;
+      height: 100%;
+      padding: 0;
+      place-items: center;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    /* Fade quantity icons when the pointer is over them. */
+    .quantity-control button:hover img {
+      opacity: .58;
+    }
+
+    /* Set the size of the plus and minus icons. */
+    .quantity-control button img {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* Center and bold the selected quantity. */
+    .quantity-value {
+      font-size: 14px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    /* Share colors, spacing, and shape between the main buttons. */
+    .add-button,
+    .checkout-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 52px;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 7px;
+      background: var(--orange);
+      box-shadow: 0 11px 20px rgb(233 120 69 / 21%);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    /* Darken and lift buttons when the pointer is over them. */
+    .add-button:hover,
+    .checkout-button:hover {
+      transform: translateY(-1px);
+      background: #d86634;
+      box-shadow: 0 13px 23px rgb(233 120 69 / 29%);
+    }
+
+    /* Turn the cart icon white inside the orange button. */
+    .add-button img {
+      width: 17px;
+      height: 17px;
+      filter: brightness(0) invert(1);
+    }
+
+    /* Show a visible outline when someone tabs to a button or link. */
+    .add-button:focus-visible,
+    .checkout-button:focus-visible,
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid rgb(233 120 69 / 42%);
+      outline-offset: 3px;
+    }
+
+    /* Place the gallery in the first column, to the left of the text. */
+    .gallery {
+      grid-column: 1;
+      grid-row: 1;
+      width: 100%;
+      max-width: 440px;
+      justify-self: start;
+    }
+
+    /* Make the main product photo square and crop its edges. */
+    .hero-image-wrap {
+      overflow: hidden;
+      border-radius: 12px;
+      background: #f1eee9;
+      aspect-ratio: 1 / 1;
+    }
+
+    /* Make the main product photo fill its square frame. */
+    .hero-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: image-in 280ms ease both;
+    }
+
+    /* Place four thumbnail photos in one row. */
+    .thumbnail-list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 17px;
+      margin-top: 20px;
+    }
+
+    /* Give each thumbnail a square shape and clickable button area. */
+    .thumbnail-button {
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+      aspect-ratio: 1 / 1;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      background: #f1eee9;
+      cursor: pointer;
+      transition: border-color 160ms ease, opacity 160ms ease;
+    }
+
+    /* Make each small photo fill its thumbnail button. */
+    .thumbnail-button img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Fade a thumbnail slightly when the pointer is over it. */
+    .thumbnail-button:hover {
+      opacity: .78;
+    }
+
+    /* Add an orange border to the selected thumbnail. */
+    .thumbnail-button[aria-pressed="true"] {
+      border-color: var(--orange);
+    }
+
+    /* Add a light overlay to the selected thumbnail. */
+    .thumbnail-button[aria-pressed="true"]::after {
+      position: absolute;
+      inset: 0;
+      background: rgb(255 255 255 / 42%);
+      content: "";
+    }
+
+    /* Style the short message shown after a cart action. */
+    .toast {
+      position: fixed;
+      z-index: 8;
+      right: 24px;
+      bottom: 24px;
+      padding: 13px 18px;
+      border-radius: 7px;
+      background: var(--ink);
+      box-shadow: var(--shadow);
+      color: white;
+      font-size: 14px;
+      animation: pop-in 180ms ease-out both;
+    }
+
+    /* Hide the message when it is not being used. */
+    .toast[hidden] {
+      display: none;
+    }
+
+    /* Animate the product area as it first appears. */
+    @keyframes rise-in {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animate the cart panel and small messages. */
+    @keyframes pop-in {
+      from {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Fade in a product photo after it changes. */
+    @keyframes image-in {
+      from {
+        opacity: .65;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* These changes rearrange the page for phones and small tablets. */
+    @media (max-width: 760px) {
+
+      /* Make the mobile header shorter and leave narrow side margins. */
+      .site-header {
+        width: calc(100% - 40px);
+        height: 76px;
+        gap: 18px;
+        border-bottom: 0;
+      }
+
+      .brand {
+        font-size: 25px;
+      }
+
+      /* Show the menu button on small screens. */
+      .menu-button {
+        display: grid;
+        order: -1;
+        width: 22px;
+      }
+
+      .menu-button img {
+        width: 17px;
+        height: 17px;
+      }
+
+      /* Hide the mobile navigation until the menu button is clicked. */
+      .main-nav {
+        position: absolute;
+        top: 66px;
+        left: -20px;
+        display: none;
+        width: min(260px, calc(100vw - 40px));
+        height: auto;
+        padding: 17px 24px 22px;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 0;
+        border-radius: 0 0 8px 8px;
+        background: white;
+        box-shadow: 0 18px 28px rgb(25 29 33 / 12%);
+      }
+
+      /* Show the mobile navigation when JavaScript adds this class. */
+      .main-nav.is-open {
+        display: flex;
+      }
+
+      /* Make each mobile link tall and easy to tap. */
+      .main-nav a {
+        height: 45px;
+        border: 0;
+        color: var(--ink);
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .header-actions {
+        gap: 16px;
+      }
+
+      .icon-button {
+        width: 34px;
+      }
+
+      .avatar-button {
+        width: 36px;
+        height: 36px;
+      }
+
+      .avatar-button img {
+        width: 35px;
+        height: 35px;
+      }
+
+      .cart-popover {
+        top: 65px;
+        right: -8px;
+      }
+
+      /* Stack the gallery above the product details on phones. */
+      .product-layout {
+        display: flex;
+        width: 100%;
+        margin: 0 auto 60px;
+        flex-direction: column-reverse;
+        align-items: stretch;
+        gap: 34px;
+      }
+
+      .gallery {
+        width: 100%;
+        max-width: none;
+      }
+
+      .hero-image-wrap {
+        border-radius: 0;
+      }
+
+      .thumbnail-list {
+        gap: 12px;
+        width: calc(100% - 40px);
+        margin: 14px auto 0;
+      }
+
+      .thumbnail-button {
+        border-radius: 7px;
+      }
+
+      .product-copy {
+        width: calc(100% - 48px);
+        max-width: 520px;
+        margin: 0 auto;
+      }
+
+      .eyebrow {
+        margin-bottom: 13px;
+        font-size: 11px;
+      }
+
+      .product-title {
+        max-width: 480px;
+        font-size: clamp(32px, 9vw, 42px);
+      }
+
+      .product-description {
+        margin: 17px 0 22px;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .price-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .original-price {
+        margin: 0;
+      }
+
+      .purchase-row {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 23px;
+      }
+
+      .quantity-control {
+        grid-template-columns: 1fr 40px 1fr;
+        height: 50px;
+      }
+
+      .add-button {
+        min-height: 52px;
+      }
+    }
+
+    /* Make the controls fit on very narrow phones. */
+    @media (max-width: 360px) {
+      .site-header {
+        width: calc(100% - 28px);
+        gap: 12px;
+      }
+
+      .header-actions {
+        gap: 9px;
+      }
+
+      .product-copy {
+        width: calc(100% - 36px);
+      }
+
+      .purchase-row {
+        grid-template-columns: 112px 1fr;
+        gap: 9px;
+      }
+
+      .add-button {
+        gap: 7px;
+        padding: 0 10px;
+        font-size: 12px;
+      }
+    }
